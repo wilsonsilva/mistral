@@ -1,0 +1,60 @@
+# frozen_string_literal: true
+
+module Mistral
+  class ModelPermission < Dry::Struct
+    attr_reader id: String
+    attr_reader object: String
+    attr_reader created: Integer
+    attr_reader allow_create_engine: bool
+    attr_reader allow_sampling: bool
+    attr_reader allow_logprobs: bool
+    attr_reader allow_search_indices: bool
+    attr_reader allow_view: bool
+    attr_reader allow_fine_tuning: bool
+    attr_reader organization: String
+    attr_reader group: String?
+    attr_reader is_blocking: bool
+
+    def initialize: (
+      id: String,
+      object: String,
+      created: Integer,
+      allow_create_engine: bool,
+      allow_sampling: bool,
+      allow_logprobs: bool,
+      allow_search_indices: bool,
+      allow_view: bool,
+      allow_fine_tuning: bool,
+      organization: String,
+      ?group: String,
+      is_blocking: bool
+    ) -> void
+  end
+
+  class ModelCard < Dry::Struct
+    attr_reader id: String
+    attr_reader object: String
+    attr_reader created: Integer
+    attr_reader owned_by: String
+    attr_reader root: String?
+    attr_reader parent: String?
+    attr_reader permission: Array[ModelPermission]
+
+    def initialize: (
+      id: String,
+      object: String,
+      created: Integer,
+      owned_by: String,
+      ?root: String,
+      ?parent: String,
+      permission: Array[ModelPermission]
+    ) -> void
+  end
+
+  class ModelList < Dry::Struct
+    attr_reader object: String
+    attr_reader data: Array[ModelCard]
+
+    def initialize: (Hash[Symbol | String, untyped] attributes) -> void
+  end
+end

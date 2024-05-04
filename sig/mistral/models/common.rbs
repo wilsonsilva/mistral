@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+module Mistral
+  class UsageInfo < Dry::Struct
+    attr_reader prompt_tokens: Integer
+    attr_reader total_tokens: Integer
+    attr_reader completion_tokens: Integer?
+
+    def initialize: (prompt_tokens: Integer, total_tokens: Integer, ?completion_tokens: Integer) -> void
+  end
+end

@@ -1,0 +1,124 @@
+module Mistral
+  class Function < Dry::Struct
+    attr_reader name: String
+    attr_reader description: String
+    attr_reader parameters: Hash[untyped, untyped]
+
+    def initialize: (name: String, description: String, parameters: Hash[untyped, untyped]) -> void
+  end
+
+  class ToolType < Mistral::Types::Strict::String
+  end
+
+  type tool_type = 'function' | ToolType
+
+  class FunctionCall < Dry::Struct
+    attr_reader name: String
+    attr_reader arguments: String
+
+    def initialize: (name: String, arguments: String) -> void
+  end
+
+  class ToolCall < Dry::Struct
+    attr_reader id: String
+    attr_reader type: tool_type
+    attr_reader function: FunctionCall
+
+    def initialize: (id: String, type: tool_type, function: FunctionCall) -> void
+  end
+
+  class ResponseFormats < Mistral::Types::Strict::String
+  end
+
+  type response_formats = 'text' | 'json_object' | ResponseFormats
+
+  class ToolChoice < Mistral::Types::Strict::String
+  end
+
+  type tool_choice = 'auto' | 'any' | 'none' | ToolChoice
+
+  class ResponseFormat < Dry::Struct
+    attr_reader type: response_formats
+
+    def initialize: (type: response_formats) -> void
+  end
+
+  class ChatMessage < Dry::Struct
+    attr_reader role: String
+    attr_reader content: Array[String] | String
+    attr_reader name: String?
+    attr_reader tool_calls: Array[ToolCall]?
+
+    def initialize: (
+      role: String,
+      content: Array[String] | String,
+      ?name: String,
+      ?tool_calls: Array[ToolCall]
+    ) -> void
+  end
+
+  class DeltaMessage < Dry::Struct
+    attr_reader role: String?
+    attr_reader content: String?
+    attr_reader tool_calls: Array[ToolCall]?
+
+    def initialize: (?role: String, ?content: String, ?tool_calls: Array[ToolCall]) -> void
+  end
+
+  class FinishReason < Mistral::Types::Strict::String
+  end
+
+  type finish_reason = 'stop' | 'length' | 'error' | 'tool_calls' | FinishReason
+
+  class ChatCompletionResponseStreamChoice < Dry::Struct
+    attr_reader index: Integer
+    attr_reader delta: DeltaMessage
+    attr_reader finish_reason: finish_reason?
+
+    def initialize: (index: Integer, delta: DeltaMessage, ?finish_reason: finish_reason) -> void
+  end
+
+  class ChatCompletionStreamResponse < Dry::Struct
+    attr_reader id: String
+    attr_reader model: String
+    attr_reader choices: Array[ChatCompletionResponseStreamChoice]
+    attr_reader created: Integer?
+    attr_reader object: String?
+    attr_reader usage: UsageInfo?
+
+    def initialize: (
+      id: String,
+      model: String,
+      choices: Array[ChatCompletionResponseStreamChoice],
+      ?created: Integer,
+      ?object: String,
+      ?usage: UsageInfo
+    ) -> void
+  end
+
+  class ChatCompletionResponseChoice < Dry::Struct
+    attr_reader index: Integer
+    attr_reader message: ChatMessage
+    attr_reader finish_reason: finish_reason?
+
+    def initialize: (index: Integer, message: ChatMessage, ?finish_reason: finish_reason) -> void
+  end
+
+  class ChatCompletionResponse < Dry::Struct
+    attr_reader id: String
+    attr_reader object: String
+    attr_reader created: Integer
+    attr_reader model: String
+    attr_reader choices: Array[ChatCompletionResponseChoice]
+    attr_reader usage: UsageInfo
+
+    def initialize: (
+      id: String,
+      object: String,
+      created: Integer,
+      model: String,
+      choices: Array[ChatCompletionResponseChoice],
+      usage: UsageInfo
+    ) -> void
+  end
+end

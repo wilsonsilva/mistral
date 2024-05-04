@@ -1,0 +1,21 @@
+# frozen_string_literal: true
+
+module HTTP
+  class ContentType
+    MIME_TYPE_RE: Regexp
+    CHARSET_RE: Regexp
+
+    attr_accessor mime_type: String?
+    attr_accessor charset: String?
+
+    def self.parse: (String str) -> ContentType
+
+    private
+
+    def self.mime_type: (String str) -> String?
+
+    def self.charset: (String str) -> String?
+
+    def initialize: (?String mime_type, ?String charset) -> void
+  end
+end

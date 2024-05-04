@@ -1,0 +1,64 @@
+module Mistral
+  VERSION: String
+  # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+  RETRY_STATUS_CODES: Array[Integer]
+  ENDPOINT: String
+
+  module Types
+    # include Dry::Strict
+    module Strict
+      class Array
+        def self.of: (untyped) -> instance
+        def self.optional: -> instance
+        def optional: -> instance
+        def self.default: (untyped) -> instance
+        def default: (untyped) -> instance
+        def |: (untyped) -> instance
+        def to_h: -> Hash
+      end
+
+      class Enum
+        def self.optional: -> String
+        def self.default: (untyped) -> String
+      end
+
+      class String
+        def self.optional: -> String
+        def self.default: (untyped) -> String
+        def self.enum: (*untyped values) -> Enum
+        def enum: (*untyped values) -> Enum
+        def to_h: -> Hash
+      end
+
+      class Hash
+        def self.optional: -> Hash
+        def self.default: (untyped) -> Hash
+        def to_h: -> Hash
+      end
+
+      class Integer
+        def self.optional: -> Integer
+        def self.default: (untyped) -> Integer
+        def to_h: -> Hash
+      end
+
+      class Float
+        def self.optional: -> Float
+        def self.default: (untyped) -> Float
+        def to_h: -> Hash
+      end
+
+      class Bool
+        def self.optional: -> Bool
+        def self.default: (untyped) -> Bool
+        def to_h: -> Hash
+      end
+    end
+
+    class String
+      def self.optional: -> String
+      def self.default: (untyped) -> String
+    end
+  end
+end

@@ -1,0 +1,54 @@
+# frozen_string_literal: true
+
+module HTTP
+  class Headers
+    CANONICAL_NAME_RE: Regexp
+    COMPLIANT_NAME_RE: Regexp
+
+    def initialize: () -> void
+
+    def set: (String | Symbol name, Array[untyped] | untyped value) -> void
+    alias []= set
+
+    def delete: (String | Symbol name) -> void
+
+    def add: (String | Symbol name, Array[untyped] | untyped value) -> void
+
+    def get: (String | Symbol name) -> Array[String]
+
+    def []: (String | Symbol name) -> String?
+
+    def include?: (String | Symbol name) -> bool
+
+    def to_h: () -> Hash[String, String | Array[String]]
+    alias to_hash to_h
+
+    def to_a: () -> Array[[String, String]]
+
+    def inspect: () -> String
+
+    def keys: () -> Array[String]
+
+    def ==: (untyped other) -> bool
+
+    def each: () { ([String, String]) -> void } -> Array[String]
+
+    def empty?: -> bool
+
+    def hash: -> Hash[String, untyped]
+
+    def initialize_copy: (Headers orig) -> void
+
+    def merge!: (Headers | Hash[String | Symbol, untyped] | Array[[String | Symbol, untyped]] other) -> void
+
+    def merge: (Headers | Hash[String | Symbol, untyped] | Array[[String | Symbol, untyped]] other) -> Headers
+
+    def self.coerce: (Headers | Hash[String | Symbol, untyped] | Array[[String | Symbol, untyped]] object) -> Headers
+
+    private
+
+    def normalize_header: (String name) -> String
+
+    def validate_value: (untyped value) -> String
+  end
+end

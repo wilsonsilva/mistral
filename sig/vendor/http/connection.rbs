@@ -1,0 +1,6 @@
+# frozen_string_literal: true
+
+module HTTP
+  class Connection
+  end
+end

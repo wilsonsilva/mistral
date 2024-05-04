@@ -1,0 +1,45 @@
+module Dry
+  def self.Types: -> Module
+
+  # module Strict
+  #   class Array
+  #     def self.of: (untyped) -> void
+  #     def self.optional: -> void
+  #     def self.default: (untyped) -> void
+  #   end
+  #
+  #   class String
+  #     def self.optional: -> void
+  #     def self.default: (untyped) -> void
+  #   end
+  #
+  #   class Hash
+  #     def self.optional: -> void
+  #     def self.default: (untyped) -> void
+  #   end
+  #
+  #   class Integer
+  #     def self.optional: -> void
+  #     def self.default: (untyped) -> void
+  #   end
+  #
+  #   class Float
+  #     def self.optional: -> void
+  #     def self.default: (untyped) -> void
+  #   end
+  #
+  #   class Bool
+  #     def self.optional: -> void
+  #     def self.default: (untyped) -> void
+  #   end
+  # end
+
+  class Struct
+    def self.attribute: (Symbol name, untyped type) -> untyped
+    def self.attribute?: (Symbol name, untyped type) -> untyped
+    def self.transform_keys: { (untyped) -> Symbol } -> untyped
+    def self.optional: -> void
+    def self.default: (untyped) -> void
+    def to_h: -> Hash[Symbol, Object]
+  end
+end

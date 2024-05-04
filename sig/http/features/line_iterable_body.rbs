@@ -1,0 +1,9 @@
+# frozen_string_literal: true
+
+module HTTP
+  class Response
+    class Body
+      def each_line: () { (String) -> void } -> Enumerator[String, void] | () -> Enumerator[String, void]
+    end
+  end
+end

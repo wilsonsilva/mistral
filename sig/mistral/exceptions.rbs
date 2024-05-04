@@ -1,0 +1,23 @@
+# frozen_string_literal: true
+
+module Mistral
+  class Error < StandardError
+  end
+
+  class APIError < Error
+    attr_reader http_status: Integer?
+    attr_reader headers: Hash[String, String]?
+
+    def initialize: (message: String?, http_status: Integer?, headers: Hash[String, String | Array[String]]?) -> void
+
+    def self.from_response: (HTTP::Response response, message: String?) -> APIError
+
+    def to_s: () -> String
+  end
+
+  class APIStatusError < APIError
+  end
+
+  class ConnectionError < Error
+  end
+end

@@ -1,0 +1,94 @@
+# frozen_string_literal: true
+
+module HTTP
+  class Response
+    class Status
+      def self.coerce: (String | Symbol | Numeric object) -> Status
+      alias self.[] self.coerce
+
+      private
+
+      def self.symbolize: (untyped str) -> Symbol
+
+      SYMBOLS: Hash[Integer, Symbol]
+      SYMBOL_CODES: Hash[Symbol, Integer]
+
+      attr_reader code: Integer
+
+      def reason: () -> String?
+      def to_s: () -> String
+
+      def informational?: () -> bool
+      def success?: () -> bool
+      def redirect?: () -> bool
+      def client_error?: () -> bool
+      def server_error?: () -> bool
+
+      def to_sym: () -> Symbol?
+      def inspect: () -> String
+
+      def continue?: () -> bool
+      def switching_protocols?: () -> bool
+      def processing?: () -> bool
+      def ok?: () -> bool
+      def created?: () -> bool
+      def accepted?: () -> bool
+      def non_authoritative_information?: () -> bool
+      def no_content?: () -> bool
+      def reset_content?: () -> bool
+      def partial_content?: () -> bool
+      def multi_status?: () -> bool
+      def already_reported?: () -> bool
+      def im_used?: () -> bool
+      def multiple_choices?: () -> bool
+      def moved_permanently?: () -> bool
+      def found?: () -> bool
+      def see_other?: () -> bool
+      def not_modified?: () -> bool
+      def use_proxy?: () -> bool
+      def temporary_redirect?: () -> bool
+      def permanent_redirect?: () -> bool
+      def bad_request?: () -> bool
+      def unauthorized?: () -> bool
+      def payment_required?: () -> bool
+      def forbidden?: () -> bool
+      def not_found?: () -> bool
+      def method_not_allowed?: () -> bool
+      def not_acceptable?: () -> bool
+      def proxy_authentication_required?: () -> bool
+      def request_timeout?: () -> bool
+      def conflict?: () -> bool
+      def gone?: () -> bool
+      def length_required?: () -> bool
+      def precondition_failed?: () -> bool
+      def payload_too_large?: () -> bool
+      def uri_too_long?: () -> bool
+      def unsupported_media_type?: () -> bool
+      def range_not_satisfiable?: () -> bool
+      def expectation_failed?: () -> bool
+      def misdirected_request?: () -> bool
+      def unprocessable_entity?: () -> bool
+      def locked?: () -> bool
+      def failed_dependency?: () -> bool
+      def upgrade_required?: () -> bool
+      def precondition_required?: () -> bool
+      def too_many_requests?: () -> bool
+      def request_header_fields_too_large?: () -> bool
+      def unavailable_for_legal_reasons?: () -> bool
+      def internal_server_error?: () -> bool
+      def not_implemented?: () -> bool
+      def bad_gateway?: () -> bool
+      def service_unavailable?: () -> bool
+      def gateway_timeout?: () -> bool
+      def http_version_not_supported?: () -> bool
+      def variant_also_negotiates?: () -> bool
+      def insufficient_storage?: () -> bool
+      def loop_detected?: () -> bool
+      def not_extended?: () -> bool
+      def network_authentication_required?: () -> bool
+
+      def __setobj__: (Integer obj) -> void
+      def __getobj__: () -> Integer
+    end
+  end
+end

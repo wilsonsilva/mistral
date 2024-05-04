@@ -1,0 +1,61 @@
+# frozen_string_literal: true
+
+module Mistral
+  class Client < ClientBase
+    def initialize: (
+      ?api_key: String,
+      ?endpoint: String,
+      ?max_retries: Integer,
+      ?timeout: Integer
+    ) -> void
+
+    def chat: (
+      messages: Array[ChatMessage],
+      ?model: String?,
+      ?tools: Array[Hash[String, untyped]]?,
+      ?temperature: Float?,
+      ?max_tokens: Integer?,
+      ?top_p: Float?,
+      ?random_seed: Integer?,
+      ?safe_mode: bool,
+      ?safe_prompt: bool,
+      ?tool_choice: tool_type? | ToolType?,
+      ?response_format: response_formats?
+    ) -> ChatCompletionResponse
+
+    def chat_stream: (
+      messages: Array[ChatMessage],
+      ?model: String?,
+      ?tools: Array[Hash[String, untyped]]?,
+      ?temperature: Float?,
+      ?max_tokens: Integer?,
+      ?top_p: Float?,
+      ?random_seed: Integer?,
+      ?safe_mode: bool?,
+      ?safe_prompt: bool?,
+      ?tool_choice: tool_type? | ToolType?,
+      ?response_format: response_formats?
+    ) -> Enumerator[ChatCompletionStreamResponse, void]
+
+    def embeddings: (
+      model: String,
+      input: String | Array[String]
+    ) -> EmbeddingResponse
+
+    def list_models: () -> ModelList
+
+    private
+
+    def request: (
+      String method,
+      String path,
+      ?json: Hash[String | Symbol, untyped],
+      ?stream: bool,
+      ?attempt: Integer
+    ) -> Enumerator[Hash[String, untyped], void]
+
+    def check_response: (HTTP::Response response) -> Hash[String, untyped]
+
+    def check_response_status_codes: (HTTP::Response response) -> void
+  end
+end

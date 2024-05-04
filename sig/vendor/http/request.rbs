@@ -1,0 +1,49 @@
+# frozen_string_literal: true
+
+module HTTP
+  class Request
+    USER_AGENT: String
+
+    METHODS: Array[Symbol]
+
+    SCHEMES: Array[Symbol]
+
+    PORTS: Hash[Symbol, Integer]
+
+    attr_reader verb: Symbol
+    attr_reader scheme: Symbol
+    attr_reader uri_normalizer: Proc
+    attr_reader proxy: Hash[Symbol, untyped]
+    attr_reader version: String
+
+    def initialize: (Hash[Symbol, untyped] opts) -> void
+
+    def redirect: (String, ?Symbol verb) -> HTTP::Request
+
+    def stream: (untyped socket) -> void
+
+    def using_proxy?: () -> bool
+
+    def using_authenticated_proxy?: () -> bool
+
+    def include_proxy_headers: () -> void
+
+    def include_proxy_authorization_header: () -> void
+
+    def proxy_authorization_header: () -> String
+
+    def connect_using_proxy: (untyped socket) -> void
+
+    def headline: () -> String
+
+    def proxy_connect_header: () -> String
+
+    def proxy_connect_headers: () -> HTTP::Headers
+
+    def socket_host: () -> String
+
+    def socket_port: () -> Integer
+
+    def inspect: () -> String
+  end
+end

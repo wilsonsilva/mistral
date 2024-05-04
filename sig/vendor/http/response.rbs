@@ -1,0 +1,38 @@
+module HTTP
+  class Response
+    attr_reader status: Status
+    attr_reader version: String
+    attr_reader body: Body
+    attr_reader request: Request
+    attr_reader proxy_headers: Headers
+
+    def initialize: (Hash[Symbol, untyped] opts) -> void
+
+    def reason: () -> String
+    def code: () -> Integer
+    def to_s: () -> String
+    alias to_str to_s
+    def readpartial: (*untyped) -> String
+    def connection: () -> Connection
+    def uri: () -> String
+
+    def to_a: () -> [Integer, Hash[String, String], String]
+    def flush: () -> self
+
+    def content_length: () -> Integer?
+    def content_type: () -> ContentType
+    def mime_type: () -> String?
+    def charset: () -> String?
+    def cookies: () -> untyped
+    def chunked?: () -> bool
+    def headers: -> Headers
+
+    def parse: (?String type) -> untyped
+    def inspect: () -> String
+
+    private
+
+    def default_encoding: () -> Encoding
+    def init_request: (Hash[Symbol, untyped] opts) -> Request
+  end
+end

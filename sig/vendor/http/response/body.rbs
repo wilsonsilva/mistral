@@ -1,0 +1,26 @@
+# frozen_string_literal: true
+
+module HTTP
+  class Response
+    class Body
+      attr_reader connection: Connection
+
+      def initialize: (Connection stream, ?encoding: Encoding) -> void
+
+      def readpartial: (*untyped args) -> String?
+
+      def each: () { (String) -> void } -> void
+
+      def to_s: () -> String
+      alias to_str to_s
+
+      def stream!: () -> void
+
+      def inspect: () -> String
+
+      private
+
+      def find_encoding: (Encoding encoding) -> Encoding
+    end
+  end
+end

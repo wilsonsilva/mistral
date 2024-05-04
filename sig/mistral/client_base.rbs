@@ -1,0 +1,32 @@
+module Mistral
+  class ClientBase
+    @logger: Logger
+    @default_model: String?
+
+    attr_reader endpoint: String
+    attr_reader api_key: String?
+    attr_reader max_retries: Integer
+    attr_reader timeout: Integer
+
+    def initialize: (endpoint: String, ?api_key: String?, ?max_retries: Integer, ?timeout: Integer) -> void
+    def parse_tools: (Array[Hash[String, untyped]] tools) -> Array[Hash[String, untyped]]
+    def parse_tool_choice: (tool_type | untyped tool_choice) -> (tool_type | untyped)
+    def parse_response_format: (response_formats) -> Hash[untyped, untyped]
+    def parse_messages: (Array[ChatMessage] messages) -> Array[Hash[Symbol, Object]]
+    def make_chat_request: (
+      messages: Array[ChatMessage],
+      ?model: String?,
+      ?tools: Array[Hash[String, untyped]]?,
+      ?temperature: Float?,
+      ?max_tokens: Integer?,
+      ?top_p: Float?,
+      ?random_seed: Integer?,
+      ?stream: bool?,
+      ?safe_prompt: bool,
+      ?tool_choice: tool_type? | ToolType?,
+      ?response_format: response_formats?
+    ) -> Hash[Symbol, untyped]
+    def process_line: (String line) -> Hash[String, untyped]?
+    def config_logger: -> Logger
+  end
+end

@@ -1,0 +1,21 @@
+# frozen_string_literal: true
+
+module Mistral
+  class EmbeddingObject < Dry::Struct
+    attr_reader object: String
+    attr_reader embedding: Array[Float]
+    attr_reader index: Integer
+
+    def initialize: (object: String, embedding: Array[Float], index: Integer) -> void
+  end
+
+  class EmbeddingResponse < Dry::Struct
+    attr_reader id: String
+    attr_reader object: String
+    attr_reader data: Array[EmbeddingObject]
+    attr_reader model: String
+    attr_reader usage: UsageInfo
+
+    def initialize: (id: String, object: String, data: Array[EmbeddingObject], model: String, usage: UsageInfo) -> void
+  end
+end
