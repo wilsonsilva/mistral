@@ -9,4 +9,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial release. Feature parity with `v0.1.8` of the [client-python](https://github.com/mistralai/client-python)
 
-[0.1.0]: https://github.com/wilsonsilva/nostr/compare/28e7c9...v0.1.0
+[0.1.0]: https://github.com/wilsonsilva/mistral/compare/28e7c9...v0.1.0
