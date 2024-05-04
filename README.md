@@ -18,7 +18,31 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TODO: Write usage instructions here
+You can install our Ruby gem by running:
+
+```sh
+gem install mistral
+````
+
+Once installed, you can run the chat completion:
+
+```ruby
+require 'mistral'
+
+api_key = ENV.fetch('MISTRAL_API_KEY')
+client = Mistral::Client.new(api_key: api_key)
+
+model = 'mistral-tiny'
+
+chat_response = client.chat(
+  model: model,
+  messages: [
+    Mistral::ChatMessage.new(role: 'user', content: 'What is the best French cheese?')
+  ]
+)
+
+puts chat_response.choices[0].message.content
+```
 
 ## Development
 

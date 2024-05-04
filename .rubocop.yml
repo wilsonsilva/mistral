@@ -50,3 +50,11 @@ Metrics/BlockLength:
 Naming/PredicateName:
   Enabled: false
 
+Style/GlobalVars:
+  Exclude:
+    - examples/chatbot_with_streaming.rb
+
+Style/StringConcatenation:
+  Exclude:
+    - test/test_chat.rb
+    - test/test_helper.rb

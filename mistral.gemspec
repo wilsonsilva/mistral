@@ -33,7 +33,12 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'dry-struct', '~> 1.6'
+  spec.add_dependency 'http', '~> 5.2'
+
+  spec.add_development_dependency 'dotenv', '~> 3.1'
   spec.add_development_dependency 'minitest', '~> 5.22'
   spec.add_development_dependency 'rake', '~> 13.2'
   spec.add_development_dependency 'rubocop', '~> 1.63'
+  spec.add_development_dependency 'webmock', '~> 3.23'
 end
