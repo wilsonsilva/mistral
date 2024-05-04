@@ -7,5 +7,3 @@
 /spec/reports/
 /tmp/
 
-# rspec failure tracking
-.rspec_status
