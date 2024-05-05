@@ -175,7 +175,7 @@ This code resides in `lib/http/features/line_iterable_body.rb`.
 ## Testing
 
 The Ruby gem aims for 1:1 parity with the Python client. As such, it uses `Minitest` (similar to Python's `pytest`).
-However, testing was simplified by using and `webmock` for stubbing requests, instead of implementing 100% test
+However, testing was simplified by using `webmock` for stubbing requests, instead of implementing 100% test
 coverage and using RSpec, which is usually what I do.
 
 ## Examples
