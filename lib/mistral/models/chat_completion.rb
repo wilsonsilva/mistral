@@ -43,6 +43,7 @@ module Mistral
     attribute :content, Types::Strict::Array.of(Types::Strict::String) | Types::Strict::String
     attribute? :name, Types::String.optional
     attribute? :tool_calls, Types::Strict::Array.of(ToolCall).optional
+    attribute? :tool_call_id, Types::String.optional
   end
 
   class DeltaMessage < Dry::Struct

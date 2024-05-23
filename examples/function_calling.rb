@@ -73,7 +73,7 @@ tools = [
 ]
 
 api_key = ENV.fetch('MISTRAL_API_KEY')
-model = 'mistral-large-latest'
+model = 'mistral-small-latest'
 
 client = Mistral::Client.new(api_key: api_key)
 
@@ -97,7 +97,9 @@ puts "calling function_name: #{function_name}, with function_params: #{function_
 function_result = names_to_functions[function_name].call(function_params['transaction_id'])
 
 messages << response.choices[0].message
-messages << Mistral::ChatMessage.new(role: 'tool', name: function_name, content: function_result)
+messages << Mistral::ChatMessage.new(
+  role: 'tool', name: function_name, content: function_result, tool_call_id: tool_call.id
+)
 
 response = client.chat(model: model, messages: messages, tools: tools)
 
