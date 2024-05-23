@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ['wilson.dsigns@gmail.com']
 
   spec.summary = 'A Ruby client for the Mistral AI platform'
-  spec.description = 'You can use the Mistral Ruby client to interact with the Mistral AI API.'
+  spec.description = 'A 1:1 Ruby port of the official Mistral Python client, with feature and API parity.'
   spec.homepage = 'https://github.com/wilsonsilva/mistral'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.3.0'
