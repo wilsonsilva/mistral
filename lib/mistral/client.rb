@@ -6,7 +6,7 @@ module Mistral
   # Synchronous wrapper around the async client
   class Client < ClientBase
     def initialize(
-      api_key: ENV['MISTRAL_API_KEY'],
+      api_key: nil,
       endpoint: ENDPOINT,
       max_retries: 5,
       timeout: 120

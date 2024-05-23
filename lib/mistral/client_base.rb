@@ -5,10 +5,15 @@ module Mistral
     attr_reader :endpoint, :api_key, :max_retries, :timeout
 
     def initialize(endpoint:, api_key: nil, max_retries: 5, timeout: 120)
-      @endpoint = endpoint
-      @api_key = api_key
       @max_retries = max_retries
       @timeout = timeout
+
+      api_key = ENV['MISTRAL_API_KEY'] if api_key.nil?
+
+      raise Error, 'API key not provided. Please set MISTRAL_API_KEY environment variable.' if api_key.nil?
+
+      @api_key = api_key
+      @endpoint = endpoint
       @logger = config_logger
 
       # For azure endpoints, we default to the mistral model

@@ -4,7 +4,7 @@ require 'test_helper'
 
 class TestEmbeddings < Minitest::Test
   def setup
-    @client = Mistral::Client.new
+    @client = Mistral::Client.new(api_key: 'test_api_key')
   end
 
   def test_embeddings
