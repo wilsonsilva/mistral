@@ -182,3 +182,14 @@ coverage and using RSpec, which is usually what I do.
 
 The `function_calling.rb` example omits the unnecessary `n_rows = data['transaction_id'].length` line present in
 the Python version.
+
+## Logging
+
+Python has a global logger:
+
+```python
+self._logger = logging.getLogger(__name__)
+```
+
+Ruby doesn't. Thus, in order to allow users to customize the logging level, they can set the environment variable
+`MISTRAL_LOG_LEVEL` to `DEBUG`, `INFO`, `WARN`, `ERROR` or `FATAL`.

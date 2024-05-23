@@ -9,7 +9,6 @@ module Mistral
       @api_key = api_key
       @max_retries = max_retries
       @timeout = timeout
-
       @logger = config_logger
 
       # For azure endpoints, we default to the mistral model
@@ -115,7 +114,7 @@ module Mistral
 
     def config_logger
       Logger.new($stdout).tap do |logger|
-        logger.level = ENV.fetch('LOG_LEVEL', 'ERROR')
+        logger.level = ENV.fetch('MISTRAL_LOG_LEVEL', 'ERROR')
 
         logger.formatter = proc do |severity, datetime, progname, msg|
           "#{datetime.strftime("%Y-%m-%d %H:%M:%S")} #{severity} #{progname}: #{msg}\n"
