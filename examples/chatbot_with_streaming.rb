@@ -10,11 +10,12 @@ require 'optparse'
 require 'mistral'
 
 MODEL_LIST = %w[
-  mistral-tiny
-  mistral-small
-  mistral-medium
+  mistral-tiny-latest
+  mistral-small-latest
+  mistral-medium-latest
+  codestral-latest
 ].freeze
-DEFAULT_MODEL = 'mistral-small'
+DEFAULT_MODEL = 'mistral-small-latest'
 DEFAULT_TEMPERATURE = 0.7
 LOG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
 # A hash of all commands and their arguments, used for tab completion.

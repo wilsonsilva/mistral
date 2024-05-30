@@ -80,15 +80,17 @@ end
 
 In the [`examples`](https://github.com/wilsonsilva/mistral/tree/main/examples) folder, you will find how to do:
 
-| File Name                                                                                                          | Description                                                    |
-|--------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| [`chat_no_streaming.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/chat_no_streaming.rb)           | How to use the chat endpoint without streaming                 |
-| [`chat_with_streaming.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/chat_with_streaming.rb)       | How to use the chat endpoint with streaming                    |
-| [`chatbot_with_streaming.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/chatbot_with_streaming.rb) | A simple interactive chatbot using streaming                   |
-| [`embeddings.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/embeddings.rb)                         | How to use the embeddings endpoint                             |
-| [`function_calling.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/function_calling.rb)             | How to call functions using the chat endpoint                  |
-| [`json_format.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/json_format.rb)                       | How to request and parse JSON responses from the chat endpoint |
-| [`list_models.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/list_models.rb)                       | How to list available models                                   |
+| File Name                                                                                                                | Description                                                    |
+|--------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| [`chat_no_streaming.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/chat_no_streaming.rb)                 | How to use the chat endpoint without streaming                 |
+| [`chat_with_streaming.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/chat_with_streaming.rb)             | How to use the chat endpoint with streaming                    |
+| [`chatbot_with_streaming.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/chatbot_with_streaming.rb)       | A simple interactive chatbot using streaming                   |
+| [`code_completion.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/code_completion.rb)                     | How to perform a code completion                               |
+| [`completion_with_streaming.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/completion_with_streaming.rb) | How to perform a code completion with streaming                |
+| [`embeddings.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/embeddings.rb)                               | How to use the embeddings endpoint                             |
+| [`function_calling.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/function_calling.rb)                   | How to call functions using the chat endpoint                  |
+| [`json_format.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/json_format.rb)                             | How to request and parse JSON responses from the chat endpoint |
+| [`list_models.rb`](https://github.com/wilsonsilva/mistral/blob/main/examples/list_models.rb)                             | How to list available models                                   |
 
 ## 🔨 Development
 

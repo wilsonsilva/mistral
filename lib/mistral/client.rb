@@ -158,6 +158,73 @@ module Mistral
       raise Mistral::Error.new(message: 'No response received')
     end
 
+    # A completion endpoint that returns a single response.
+    #
+    # @param model [String] model the name of the model to get completion with, e.g. codestral-latest
+    # @param prompt [String] the prompt to complete
+    # @param suffix [String, nil] the suffix to append to the prompt for fill-in-the-middle completion
+    # @param temperature [Float, nil] temperature the temperature to use for sampling, e.g. 0.5.
+    # @param max_tokens [Integer, nil] the maximum number of tokens to generate, e.g. 100. Defaults to nil.
+    # @param top_p [Float, nil] the cumulative probability of tokens to generate, e.g. 0.9. Defaults to nil.
+    # @param random_seed [Integer, nil] the random seed to use for sampling, e.g. 42. Defaults to nil.
+    # @param stop [Array<String>, nil] a list of tokens to stop generation at, e.g. ['/n/n']
+    # @return [ChatCompletionResponse] a response object containing the generated text.
+    #
+    def completion(
+      model:,
+      prompt:,
+      suffix: nil,
+      temperature: nil,
+      max_tokens: nil,
+      top_p: nil,
+      random_seed: nil,
+      stop: nil
+    )
+      request = make_completion_request(
+        prompt:, model:, suffix:, temperature:, max_tokens:, top_p:, random_seed:, stop:
+      )
+      single_response = request('post', 'v1/fim/completions', json: request, stream: false)
+
+      single_response.each do |response|
+        return ChatCompletionResponse.new(**response)
+      end
+
+      raise Error, 'No response received'
+    end
+
+    # An asynchronous completion endpoint that streams responses.
+    #
+    # @param model [String] model the name of the model to get completions with, e.g. codestral-latest
+    # @param prompt [String] the prompt to complete
+    # @param suffix [String, nil] the suffix to append to the prompt for fill-in-the-middle completion
+    # @param temperature [Float, nil] temperature the temperature to use for sampling, e.g. 0.5.
+    # @param max_tokens [Integer, nil] the maximum number of tokens to generate, e.g. 100. Defaults to nil.
+    # @param top_p [Float, nil] the cumulative probability of tokens to generate, e.g. 0.9. Defaults to nil.
+    # @param random_seed [Integer, nil] the random seed to use for sampling, e.g. 42. Defaults to nil.
+    # @param stop [Array<String>, nil] a list of tokens to stop generation at, e.g. ['/n/n']
+    # @return [Enumerator<ChatCompletionStreamResponse>] a generator that yields response objects containing the
+    #   generated text.
+    #
+    def completion_stream(
+      model:,
+      prompt:,
+      suffix: nil,
+      temperature: nil,
+      max_tokens: nil,
+      top_p: nil,
+      random_seed: nil,
+      stop: nil
+    )
+      request = make_completion_request(
+        prompt:, model:, suffix:, temperature:, max_tokens:, top_p:, random_seed:, stop:, stream: true
+      )
+      response = request('post', 'v1/fim/completions', json: request, stream: true)
+
+      response.lazy.map do |json_streamed_response|
+        ChatCompletionStreamResponse.new(**json_streamed_response)
+      end
+    end
+
     private
 
     def request(method, path, json: nil, stream: false, attempt: 1)

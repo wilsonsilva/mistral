@@ -68,6 +68,57 @@ module Mistral
       parsed_messages
     end
 
+    def make_completion_request(
+      prompt:,
+      model: nil,
+      suffix: nil,
+      temperature: nil,
+      max_tokens: nil,
+      top_p: nil,
+      random_seed: nil,
+      stop: nil,
+      stream: false
+    )
+      request_data = {
+        'prompt' => prompt,
+        'suffix' => suffix,
+        'model' => model,
+        'stream' => stream
+      }
+
+      request_data['stop'] = stop unless stop.nil?
+
+      if model.nil?
+        raise Error.new(message: 'model must be provided') if @default_model.nil?
+
+        request_data['model'] = @default_model
+      else
+        request_data['model'] = model
+      end
+
+      request_data.merge!(
+        build_sampling_params(
+          temperature: temperature,
+          max_tokens: max_tokens,
+          top_p: top_p,
+          random_seed: random_seed
+        )
+      )
+
+      @logger.debug("Completion request: #{request_data}")
+
+      request_data
+    end
+
+    def build_sampling_params(max_tokens: nil, random_seed: nil, temperature: nil, top_p: nil)
+      params = {}
+      params['temperature'] = temperature unless temperature.nil?
+      params['max_tokens'] = max_tokens unless max_tokens.nil?
+      params['top_p'] = top_p unless top_p.nil?
+      params['random_seed'] = random_seed unless random_seed.nil?
+      params
+    end
+
     def make_chat_request(
       messages:,
       model: nil,

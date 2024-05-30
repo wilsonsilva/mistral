@@ -2,38 +2,45 @@
 
 require 'test_helper'
 
-class TestChat < Minitest::Test
+class TestCompletion < Minitest::Test
   def setup
     @client = Mistral::Client.new(api_key: 'test_api_key')
   end
 
-  def test_chat
-    stub_request(:post, 'https://api.mistral.ai/v1/chat/completions')
+  def test_completion
+    stub_request(:post, 'https://api.mistral.ai/v1/fim/completions')
       .with(
         body: {
-          messages: [{ role: 'user', content: 'What is the best French cheese?' }],
-          safe_prompt: false,
+          prompt: 'def add(a, b):',
+          suffix: 'return a + b',
           model: 'mistral-small-latest',
-          stream: false
+          stream: false,
+          temperature: 0.5,
+          max_tokens: 50,
+          top_p: 0.9,
+          random_seed: 42
         }.to_json,
         headers: {
           'Accept' => 'application/json',
           'Authorization' => "Bearer #{@client.api_key}",
-          'Connection' => 'Keep-Alive',
           'Content-Type' => 'application/json',
+          'Connection' => 'Keep-Alive',
           'User-Agent' => "mistral-client-ruby/#{Mistral::VERSION}"
         }
       )
-      .to_return(status: 200, body: mock_chat_response_payload, headers: {})
+      .to_return(status: 200, body: mock_completion_response_payload, headers: {})
 
-    result = @client.chat(
+    result = @client.completion(
+      prompt: 'def add(a, b):',
+      suffix: 'return a + b',
       model: 'mistral-small-latest',
-      messages: [
-        Mistral::ChatMessage.new(role: 'user', content: 'What is the best French cheese?')
-      ]
+      temperature: 0.5,
+      max_tokens: 50,
+      top_p: 0.9,
+      random_seed: 42
     )
 
-    assert_requested(:post, 'https://api.mistral.ai/v1/chat/completions',
+    assert_requested(:post, 'https://api.mistral.ai/v1/fim/completions',
       headers: {
         'User-Agent' => "mistral-client-ruby/#{Mistral::VERSION}",
         'Accept' => 'application/json',
@@ -42,30 +49,33 @@ class TestChat < Minitest::Test
         'Connection' => 'Keep-Alive'
       },
       body: {
-        messages: [{ role: 'user', content: 'What is the best French cheese?' }],
-        safe_prompt: false,
         model: 'mistral-small-latest',
-        stream: false
+        prompt: 'def add(a, b):',
+        suffix: 'return a + b',
+        stream: false,
+        temperature: 0.5,
+        max_tokens: 50,
+        top_p: 0.9,
+        random_seed: 42
       },
       times: 1
     )
 
-    assert_kind_of Mistral::ChatCompletionResponse, result, 'Should return a ChatCompletionResponse'
+    assert_kind_of Mistral::ChatCompletionResponse, result, 'Should return an ChatCompletionResponse'
     assert_equal 1, result.choices.length
     assert_equal 0, result.choices[0].index
     assert_equal 'chat.completion', result.object
   end
 
-  def test_chat_streaming
-    stub_request(:post, 'https://api.mistral.ai/v1/chat/completions')
+  def test_completion_streaming
+    stub_request(:post, 'https://api.mistral.ai/v1/fim/completions')
       .with(
         body: {
-          messages: [
-            { role: 'user', content: 'What is the best French cheese?' }
-          ],
-          safe_prompt: false,
+          prompt: 'def add(a, b):',
+          suffix: 'return a + b',
           model: 'mistral-small-latest',
-          stream: true
+          stream: true,
+          stop: ['#']
         }.to_json,
         headers: {
           'Accept' => 'text/event-stream',
@@ -75,38 +85,37 @@ class TestChat < Minitest::Test
           'User-Agent' => "mistral-client-ruby/#{Mistral::VERSION}"
         }
       )
-      .to_return(status: 200, body: mock_chat_response_streaming_payload.join, headers: {})
+      .to_return(status: 200, body: mock_completion_response_payload, headers: {})
 
-    chat_stream_result = @client.chat_stream(
+    completion_stream_result = @client.completion_stream(
       model: 'mistral-small-latest',
-      messages: [
-        Mistral::ChatMessage.new(role: 'user', content: 'What is the best French cheese?')
-      ]
+      prompt: 'def add(a, b):',
+      suffix: 'return a + b',
+      stop: ['#']
     )
 
-    results = chat_stream_result.to_a
+    results = completion_stream_result.to_a
 
-    assert_requested(:post, 'https://api.mistral.ai/v1/chat/completions',
+    assert_requested(:post, 'https://api.mistral.ai/v1/fim/completions',
       headers: {
         'User-Agent' => "mistral-client-ruby/#{Mistral::VERSION}",
         'Accept' => 'text/event-stream',
         'Authorization' => "Bearer #{@client.api_key}",
-        'Connection' => 'Keep-Alive',
-        'Content-Type' => 'application/json'
+        'Content-Type' => 'application/json',
+        'Connection' => 'Keep-Alive'
       },
       body: {
-        messages: [
-          { role: 'user', content: 'What is the best French cheese?' }
-        ],
-        safe_prompt: false,
+        prompt: 'def add(a, b):',
+        suffix: 'return a + b',
         model: 'mistral-small-latest',
-        stream: true
+        stream: true,
+        stop: ['#']
       }.to_json,
       times: 1
     )
 
     results.each_with_index do |result, i|
-      assert_kind_of Mistral::ChatCompletionStreamResponse, result, 'Should return a ChatCompletionStreamResponse'
+      assert_kind_of Mistral::ChatCompletionStreamResponse, result, 'Should return an ChatCompletionStreamResponse'
       assert_equal 1, result.choices.length
 
       if i.zero?
