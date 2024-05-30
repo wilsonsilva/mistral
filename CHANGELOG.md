@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Added support for completion requests which you can use to query their latest model
 [codestral](https://mistral.ai/news/codestral/).
-See [this example](https://github.com/wilsonsilva/mistral/blob/0.3.0/examples/code_completion.rb) to get started.
+See [this example](https://github.com/wilsonsilva/mistral/blob/v0.3.0/examples/code_completion.rb) to get started.
 
 ## [0.2.0] - 2024-05-23
 
