@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = 'A 1:1 Ruby port of the official Mistral Python client, with feature and API parity.'
   spec.homepage = 'https://github.com/wilsonsilva/mistral'
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 3.3.0'
+  spec.required_ruby_version = '>= 3.1.0'
 
   spec.metadata['allowed_push_host'] = 'https://rubygems.org'
 
